@@ -3,7 +3,7 @@
 ![Ailand_GenArea7_Windows,_Mac,_Linux_Unity_2021_3_5f1_Personal_DX11 (65)](https://github.com/andreykobal/klaytn-ai-nft-avatars/assets/19206978/ce000957-7eab-4654-b014-51f149531d0c)
 
 
-Welcome to the **Interactive AI NFT Avatars on Klaytn Chain** GitHub repository! This repository contains the Unity game project along with the smart contracts used in the game. Interactive AI NFT Avatars is an exciting 3D game where players use NFT avatars, complete quests, collect diamonds, and explore magical worlds.
+Welcome to the **Crosschain AAA WEB3 Shooter Game with AI NFT Avatars on Klaytn Chain** GitHub repository! This repository contains the Unity game project along with the smart contracts used in the game. Interactive AI NFT Avatars is an exciting 3D game where players use NFT avatars, complete quests, collect diamonds, and explore magical worlds.
 
 ## Project Setup
 
