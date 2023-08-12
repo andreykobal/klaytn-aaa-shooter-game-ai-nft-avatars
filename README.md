@@ -1,17 +1,17 @@
-# SKALE OpenVerse: Adventure Game Template With NFT, SFT, AI
+# Interactive AI NFT Avatars on Klaytn Chain
 
-![logo-skale](https://github.com/andreykobal/skale-nft-game/assets/19206978/107f80e6-670c-480c-9815-fe8a736f2642)
+![Ailand_GenArea7_Windows,_Mac,_Linux_Unity_2021_3_5f1_Personal_DX11 (65)](https://github.com/andreykobal/klaytn-ai-nft-avatars/assets/19206978/ce000957-7eab-4654-b014-51f149531d0c)
 
 
-Welcome to the **SKALE OpenVerse: Adventure Game Template** GitHub repository! This repository contains the Unity game project along with the smart contracts used in the game. Adventure Game Template is an exciting 3D game where players use NFT avatars, complete quests, collect diamonds, and explore magical worlds.
+Welcome to the **Interactive AI NFT Avatars on Klaytn Chain** GitHub repository! This repository contains the Unity game project along with the smart contracts used in the game. Interactive AI NFT Avatars is an exciting 3D game where players use NFT avatars, complete quests, collect diamonds, and explore magical worlds.
 
 ## Project Setup
 
-To set up the Adventure Game Template project, please follow these steps:
+To set up the Interactive AI NFT Avatars on Klaytn Chain project, please follow these steps:
 
 1. Clone the repository to your local machine using the following command:
    ```
-   git clone https://github.com/andreykobal/skale-nft-game.git
+   git clone https://github.com/andreykobal/klaytn-ai-nft-avatars.git
    ```
 
 2. Open the Unity game project that is located in `/unity-project` using Unity Hub or your preferred Unity editor.
@@ -22,9 +22,9 @@ To set up the Adventure Game Template project, please follow these steps:
 
 5. Set up the Metamask extension in your preferred browser and create a wallet.
 
-6. Configure the Metamask wallet by connecting it to the SKALE network and obtaining the necessary testnet tokens [SKALE Quick Start](https://docs.skale.network/develop/). 
+6. Configure the Metamask wallet by connecting it to the Klaytn Baobab network and obtaining the necessary testnet tokens [Klaytn Docs](https://docs.klaytn.foundation/) 
 
-7. Build and run the game to start playing Adventure Game Template!
+7. Build and run the game to start playing Interactive AI NFT Avatars!
 
 ## Smart Contract Deployment
 
@@ -38,12 +38,13 @@ MNEMONIC=privatekey. not the seedphrase
 * Edit the deploy script to pass in your name and ticker/uri depending on standard
 * Edit the contractUri method in the contract and add your collection metadata URI 
 * Edit the mint script and add your token uri, contract address and account address of the account you want to mint to.
-* Deploy with `npx hardhat run --network scaleTestnet scripts/deploy721.js` for ERC-721
-* Deploy with `npx hardhat run --network scaleTestnet scripts/deploy1155.js` for ERC-1155
-* Mint 721 with `npx hardhat run --network scaleTestnet scripts/mint.js`
-* Mint 1155 with `npx hardhat run --network scaleTestnet scripts/mint1155.js`
-* Check balance of ERC-1155 with `npx hardhat run --network scaleTestnet scripts/balances.js`
-* Get metadata of ERC-721 with `npx hardhat run --network scaleTestnet scripts/getTokensOfOwner.js`
+* Compile the smart contracts with `npx hardhat compile`
+* Deploy with `npx hardhat run --network klaytnBaobab scripts/deploy721.js` for ERC-721
+* Deploy with `npx hardhat run --network klaytnBaobab scripts/deploy1155.js` for ERC-1155
+* Mint 721 with `npx hardhat run --network klaytnBaobab scripts/mint.js`
+* Mint 1155 with `npx hardhat run --network klaytnBaobab scripts/mint1155.js`
+* Check balance of ERC-1155 with `npx hardhat run --network klaytnBaobab scripts/balances.js`
+* Get metadata of ERC-721 with `npx hardhat run --network klaytnBaobab scripts/getTokensOfOwner.js`
 
 
 Contract code inspired from Opensea: https://github.com/ProjectOpenSea/meta-transactions/blob/main/contracts/ERC721MetaTransactionMaticSample.sol
@@ -53,7 +54,7 @@ This is for gas-less transactions when transferring assets. Users dont have to p
 
 ### GameItem.sol
 
-The `GameItem.sol` contract is responsible for managing the 721 non-fungible token (NFT) avatars in Adventure Game Template. Players can purchase avatars and own them using this contract.
+The `GameItem.sol` contract is responsible for managing the 721 non-fungible token (NFT) avatars in Interactive AI NFT Avatars. Players can purchase avatars and own them using this contract.
 
 Important code snippets from `GameItem.sol`:
 
@@ -67,7 +68,7 @@ Important code snippets from `GameItem.sol`:
 
 ### GameItems.sol
 
-The `GameItems.sol` contract handles the 1155 semi-fungible token (SFT) diamonds in Adventure Game Template. Players can collect these diamonds and use them to claim rewards.
+The `GameItems.sol` contract handles the 1155 semi-fungible token (SFT) diamonds in Interactive AI NFT Avatars. Players can collect these diamonds and use them to claim rewards.
 
 Important code snippets from `GameItems.sol`:
 
@@ -87,23 +88,68 @@ Important code snippets from `GameItems.sol`:
   }
   ```
 
+## NFT Storage Code Highlights
+
+`/nft-storage/upload-script.js`
+
+This Node.js script uses the NFT.Storage service to upload NFT files (GLB and JPG), generate corresponding metadata, and store the resulting URLs.
+
+The most important code snippet is the `uploadNFTFiles` function, which iterates through JSON files, uploads associated GLB and JPG files, generates metadata, and stores URLs:
+
+```javascript
+async function uploadNFTFiles() {
+  const client = new NFTStorage({ token: NFT_STORAGE_TOKEN });
+  const resultUrls = [];
+
+  // ...
+
+  for (const jsonFile of jsonFiles) {
+    // ...
+
+    if (files.includes(glbFile) && files.includes(jpgFile)) {
+      // Read the JSON file
+
+      // Upload GLB file
+
+      // Upload JPG file
+
+      // Generate separate JSON file
+
+      // Upload metadata file
+
+      // Store the result URL
+
+      console.log(`NFT ${baseFileName} uploaded and metadata generated.`);
+    }
+  }
+
+  // ...
+
+  fs.writeFileSync('result_urls.json', JSON.stringify(resultUrls, null, 2));
+}
+
+uploadNFTFiles();
+```
+
+This function reads JSON files, uploads associated files to NFT.Storage, generates metadata, stores result URLs, and creates a JSON file containing the URLs of the processed NFTs.
+
 ## Game Code Highlights
 
-Here are some C# code highlights from the Adventure Game Template project:
+Here are some C# code highlights from the Interactive AI NFT Avatars Unity project:
 
 ### MintNFT.cs
 
 ```csharp
 async public void mintItem(int avatarIndex)
 {
-    string chainId = "1351057110";
+    string chainId = "1001";
     var tokenURI = "https://bafkreiczapdwomdlotjqt4yaojyizlgarn4kq57smi3ptkwn5lug5yz7yu.ipfs.nftstorage.link/";
 
     string contractAbi = "";
     string contractAddress = contractAddresses[avatarIndex];
     string method = "mintItem";
     
-    var provider = new JsonRpcProvider("https://staging-v3.skalenodes.com/v1/staging-fast-active-bellatrix");
+    var provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
     var contract = new Contract(contractAbi, contractAddress, provider);
     Debug.Log("Contract: " + contract);
     
@@ -128,7 +174,7 @@ async public void CheckNFTBalance(string contractAddress, int avatarIndex)
     string contractAbi = "";
     string method = "getBalance";
 
-    var provider = new JsonRpcProvider("https://staging-v3.skalenodes.com/v1/staging-fast-active-bellatrix");
+    var provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
     var contract = new Contract(contractAbi, contractAddress, provider);
     Debug.Log("Contract: " + contract);
 
@@ -155,11 +201,11 @@ async public void CheckNFTBalance(string contractAddress, int avatarIndex)
 async public void Check1155TotalBalance()
 {
     string contractAbi = "";
-    string contractAddress = "0x6721De8B1865A6cD98C64165305611B1f28B95e4";
+    string contractAddress = "0x6721De8B1865A6cD98C64165301001B1f28B95e4";
     string method = "getTotalBalance";
     
     var walletAddress = PlayerPrefs.GetString("Account");
-    var provider = new JsonRpcProvider("https://staging-v3.skalenodes.com/v1/staging-fast-active-bellatrix");
+    var provider = new JsonRpcProvider("https://public-en-baobab.klaytn.net");
     var contract = new Contract(contractAbi, contractAddress, provider);
     var calldata = await contract.Call(method, new object[]
     {
@@ -190,8 +236,8 @@ private async void Start()
 
 async public void Mint1155Diamonds()
 {
-    string chainId = "1351057110";
-    string contractAddress = "0x6721De8B1865A6cD98C64165305611B1f28B95e4";
+    string chainId = "1001";
+    string contractAddress = "0x6721De8B1865A6cD98C64165301001B1f28B95e4";
     string value = "0";
     string abi = "";
     string method = "batchMint";
@@ -216,109 +262,229 @@ async public void Mint1155Diamonds()
 ```
 
 ### GetTokensMetadata.cs
+This code defines a Unity script named `GetTokensMetadata` that interacts with an Ethereum smart contract and retrieves metadata for NFTs (Non-Fungible Tokens) owned by a specific address, including information like title, description, URLs for the 3D model and icon, network, and token ID.
+
+The most important code snippet is the `GetRequest` method, responsible for making a web request to retrieve JSON metadata for a specific NFT token URI, then parsing the JSON and creating an `NftData` object to store the metadata.
 
 ```csharp
-public class GetTokensMetadata : MonoBehaviour
+async Task GetRequest(string uri, string network, string tokenId)
 {
-    async public void CheckTokensOwned()
+    using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
     {
-        // ABI for GameItem contract
-        string contractAbi = "YOUR_CONTRACT_ABI";
-        // address of contract
-        string contractAddress = "0x643D5cf6fdd9Faa3825e194e925D07E290E993D2"; // Replace with your contract's address.
-        string method = "getTokensOfOwner";
-        // you can use this to create a provider for hardcoding and parse this instead of rpc get instance
-        var provider = new JsonRpcProvider("https://staging-v3.skalenodes.com/v1/staging-fast-active-bellatrix");
-        var contract = new Contract(contractAbi, contractAddress, provider);
-        Debug.Log("Contract: " + contract);
+        await webRequest.SendWebRequest();
 
-        // address of the owner whose tokens we want to check
-        string ownerAddress = PlayerPrefs.GetString("Account"); // Replace with the address of the owner whose tokens you want to check.
-
-    var calldata = await contract.Call(method, new object[]
-    {
-        ownerAddress // parameter for the getTokensOfOwner function
-    });
-
-    try
-    {
-        List<string> tokenURIs = calldata[0] as List<string>;
-
-        if(tokenURIs != null)
+        if (webRequest.isNetworkError)
         {
-            foreach (string tokenURI in tokenURIs)
-            {
-                print("Token URI: " + tokenURI);
-            }
+            Debug.Log(uri + ": Error: " + webRequest.error);
         }
         else
         {
-            print("Could not cast returned data to List<string>.");
-        }
-    }
-    catch(Exception e)
-    {
-        print("Exception when casting: " + e.Message);
-    }
-    }
-}
-```
+            JObject json = JObject.Parse(webRequest.downloadHandler.text);
 
-### ClaimController.cs
-
-Distributing sFUEL to users is an important part of building on SKALE.
-Docs: [sFUEL Distribution](https://docs.skale.network/develop/sfuel/sfuel-distribution)
-
-```csharp
-public class ClaimController : MonoBehaviour
-{
-    private const string BaseUrl = "https://skale-sfuel-77334b37033d.herokuapp.com";
-
-    private void Start() {
-        string currentAccount = PlayerPrefs.GetString("Account");
-        Claim(currentAccount);
-    }
-
-    public void Claim(string ethereumAddress)
-    {
-        string url = $"{BaseUrl}/claim/{ethereumAddress}";
-        StartCoroutine(SendRequest(url));
-    }
-
-    private IEnumerator SendRequest(string url)
-    {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
-        {
-            yield return webRequest.SendWebRequest();
-
-            if (webRequest.result == UnityWebRequest.Result.Success)
+            if (json != null)
             {
-                Debug.Log("sFuel Claim Request successful");
-                Debug.Log(webRequest.downloadHandler.text);
+                try
+                {
+                    NftData nftData = new NftData
+                    {
+                        Title = json["name"].ToString(),
+                        Description = json["description"].ToString(),
+                        UrlModel = json["animation_url"].ToString(),
+                        UrlIcon = json["image"].ToString(),
+                        Network = network,
+                        TokenId = tokenId
+                        // If you wish to include attributes, add them here
+                    };
+
+                    nftDataList.Add(nftData);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("Error while parsing and creating NftData: " + e);
+                }
             }
             else
             {
-                Debug.LogError("sFuel Claim Request failed");
-                Debug.LogError(webRequest.error);
+                Debug.LogError("Parsed JSON is null.");
             }
         }
     }
 }
 ```
+
+This method fetches metadata from a given URI, processes the retrieved JSON data to create an `NftData` object, and adds it to the `nftDataList` collection for later use.
+
+## AI Integration Code Highlights
+
+AI integration in this project involved the use of the OpenAI API for natural language processing, as well as the Microsoft Cognitive Services Speech SDK for text-to-speech synthesis; you can explore further details through the links below:
+
+OpenAI API Reference for Models: [OpenAI API Models](https://platform.openai.com/docs/api-reference/models)
+
+Microsoft Cognitive Services Speech SDK on GitHub: [Cognitive Services Speech SDK](https://github.com/Azure-Samples/cognitive-services-speech-sdk/tree/master)
+
+### OpenAIChat.cs
+
+This code defines a Unity script named `OpenAIChat` that implements a chatbot interaction using OpenAI's API, where the chatbot engages in a conversation with users and responds to their messages.
+
+The most important code snippet is the `SendMessage` method, responsible for sending a user's message to the OpenAI API, receiving a response, processing it, updating the conversation context, and initiating speech synthesis for the chatbot's reply:
+
+```csharp
+private IEnumerator SendMessage(string message)
+{
+    // ...
+
+    // Build the chat request
+    ChatRequest chatRequest = new ChatRequest
+    {
+        model = model,
+        messages = new Message[]
+        {
+            // Include both the user message and the system response in the conversation context
+            new Message { role = "system", content = systemMessage },
+            new Message { role = "user", content = conversationContext + "\n\n USER: " + message }
+        }
+    };
+
+    // ...
+
+    // Send the request to OpenAI API
+    yield return request.SendWebRequest();
+
+    if (request.result != UnityWebRequest.Result.Success)
+    {
+        Debug.LogError("Error: " + request.error);
+    }
+    else
+    {
+        // Process the API response
+        string jsonResponse = request.downloadHandler.text;
+        ChatResponse chatResponse = JsonConvert.DeserializeObject<ChatResponse>(jsonResponse);
+        string reply = chatResponse.choices[0].message.content;
+        Debug.Log("Completion: " + reply);
+
+        // ...
+
+        // Update conversation context with user and chatbot messages
+        conversationContext += "USER: " + message + "\n";
+        conversationContext += characterName + ": " + reply + "\n";
+
+        // Check and adjust the conversation context length
+        TrimConversationContext();
+
+        // Enqueue sentences for speech synthesis
+        Regex regex = new Regex(@"(.*?[.!?])\s*");
+        MatchCollection matches = regex.Matches(reply);
+        foreach (Match match in matches)
+        {
+            sentenceQueue.Enqueue(match.Groups[1].Value.Trim());
+        }
+
+        // Start processing the sentence queue for speech synthesis
+        StartCoroutine(ProcessSentenceQueue());
+    }
+}
+```
+
+This method sends the user message along with the conversation context to the OpenAI API and handles the chatbot's response. It updates the conversation context and enqueues sentences for speech synthesis to simulate a more natural conversation flow.
+
+### SpeechToText.cs
+
+This script, named `SpeechToText`, is used in Unity to perform speech recognition using Microsoft's Cognitive Services Speech API, and it also interacts with an `OpenAIChat` script to integrate with a chatbot.
+
+The most important code snippet is the `ButtonClick` method, where the speech recognition process is initiated:
+
+```csharp
+public async void ButtonClick()
+{
+    // Creates an instance of a speech config with specified subscription key and service region.
+    var config = SpeechConfig.FromSubscription(SubscriptionKey, Region);
+
+    using (var recognizer = new SpeechRecognizer(config))
+    {
+        lock (threadLocker)
+        {
+            waitingForReco = true;
+        }
+
+        // Starts speech recognition, and returns after a single utterance is recognized.
+        var result = await recognizer.RecognizeOnceAsync().ConfigureAwait(false);
+
+        // Checks result.
+        string newMessage = string.Empty;
+        if (result.Reason == ResultReason.RecognizedSpeech)
+        {
+            newMessage = result.Text;
+        }
+        else if (result.Reason == ResultReason.NoMatch)
+        {
+            newMessage = "NOMATCH: Speech could not be recognized.";
+        }
+        else if (result.Reason == ResultReason.Canceled)
+        {
+            var cancellation = CancellationDetails.FromResult(result);
+            newMessage = $"CANCELED: Reason={cancellation.Reason} ErrorDetails={cancellation.ErrorDetails}";
+        }
+
+        lock (threadLocker)
+        {
+            message = newMessage;
+            waitingForReco = false;
+            MainThreadDispatcher.RunOnMainThread(() => {
+                if (outputText != null)
+                {
+                    outputText.text = message;
+                }
+                openAIChat.OnRecieveSpeech(message);
+            });
+
+        }
+    }
+}
+```
+
+This method initializes a speech recognizer, starts speech recognition, and handles the recognition result. If recognized, the recognized text is processed and passed to the `OpenAIChat` script for further interaction.
+
+### TextToSpeech.cs
+
+This script, named `TextToSpeech`, handles text-to-speech synthesis in Unity using Microsoft's Cognitive Services Speech API, and it integrates with UI elements and an avatar animation.
+
+The most important code snippet is the `synthesizeSpeech` method, which performs text-to-speech synthesis and plays the generated audio:
+
+```csharp
+public void synthesizeSpeech(string speechMessage)
+{
+    // ...
+
+    using (var result = synthesizer.StartSpeakingTextAsync(speechMessage).Result)
+    {
+        // ...
+        
+        audioSource.clip = audioClip;
+        audioSource.PlayWithEvent();
+    }
+
+    lock (threadLocker)
+    {
+        // ...
+    }
+}
+```
+
+This method uses the `SpeechSynthesizer` to synthesize speech from the provided message. It creates an audio clip from the synthesized audio data and plays it through the `audioSource`. The method also handles playback control and synchronization with the main Unity thread.
 
 
 ## Contributing
 
 Thank you for your interest in contributing
 
- to Adventure Game Template! If you would like to contribute, please follow these guidelines:
+ to Interactive AI NFT Avatars! If you would like to contribute, please follow these guidelines:
 
 - Fork the repository and create a new branch for your contributions.
 - Make your changes and ensure that the code adheres to the project's coding style and conventions.
 - Test your changes thoroughly.
 - Submit a pull request describing your changes and the rationale behind them.
 
-We appreciate your contributions to make Adventure Game Template an even more exciting game!
+We appreciate your contributions to make Interactive AI NFT Avatars an even more exciting game!
 
 ## License
 
@@ -326,7 +492,7 @@ This project is licensed under the [MIT License](LICENSE). Feel free to use, mod
 
 ## Acknowledgements
 
-We would like to express our gratitude to the open-source community for their valuable contributions and the resources that helped in the development of Adventure Game Template.
+We would like to express our gratitude to the open-source community for their valuable contributions and the resources that helped in the development of Interactive AI NFT Avatars.
 
-If you have any questions or encounter any issues, please don't hesitate to reach out. Enjoy playing Adventure Game Template!
+If you have any questions or encounter any issues, please don't hesitate to reach out. Enjoy playing Interactive AI NFT Avatars!
 
